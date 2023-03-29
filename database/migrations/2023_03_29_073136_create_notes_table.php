@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            // $table->string('userId');
+            $table->string('userId');
             $table->string('todo');
             $table->smallInteger('status')->default(0);
             $table->timestamps();

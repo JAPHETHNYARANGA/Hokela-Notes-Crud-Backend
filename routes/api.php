@@ -25,15 +25,17 @@ Route::post('login', [Authentication::class,'login']);
 
 Route::post('register',[Authentication::class, 'register']);
 
-Route::post('logout', [Authentication::class,'logout']);
+Route::get('logout', [Authentication::class,'logout'])->middleware('auth:api');
 
 
 //Todos
 
-Route::post('todos', [Notes::class,'addTodo']);
+Route::post('todos', [Notes::class,'addTodo'])->middleware('auth:api');
 
-Route::get('todos', [Notes::class, 'getTodos']);
+Route::get('todos', [Notes::class, 'getTodos'])->middleware('auth:api');
 
-Route::put('updateTodo/{id}', [Notes::class, 'updateTodo']);
+Route::put('updateTodo/{id}', [Notes::class, 'updateTodo'])->middleware('auth:api');
 
-Route::get('deleteTodo/{id}', [Notes::class, 'deleteTodo']);
+Route::get('deleteTodo/{id}', [Notes::class, 'deleteTodo'])->middleware('auth:api');
+
+Route::Put('updateStatus/{id}', [Notes::class, 'updateStatus'])->middleware('auth:api');
