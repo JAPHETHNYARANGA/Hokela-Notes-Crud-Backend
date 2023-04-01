@@ -8,118 +8,147 @@ use Illuminate\Http\Request;
 
 class Notes extends Controller
 {
-    
-    public function addTodo(Request $request){
+
+    public function addTodo(Request $request)
+    {
         $todo = new ModelsNotes();
         // 'id', 'userId', 'todo','status'
         $todo->todo = $request->todo;
         $todo->userId =  $request->user()->userId;
-        
-        
+
+
         $res = $todo->save();
 
         if ($res) {
             return response(
                 [
-                'success' =>true,
-                'message'=>'todo added successfully',
-                
-                
-            ],200);
+                    'success' => true,
+                    'message' => 'todo added successfully',
+
+
+                ],
+                200
+            );
         } else {
             return response(
                 [
-                'success' =>false,
-                'message'=>'todo add failed',
-            ],201);
+                    'success' => false,
+                    'message' => 'todo add failed',
+                ],
+                201
+            );
         }
     }
 
-    public function getTodos(Request $request){
+    public function getTodos(Request $request)
+    {
         $specificUser = $request->user()->userId;
         $todos = ModelsNotes::where('userId', $specificUser)->get();
 
         return response(
             [
-                'success' =>true,
-                'message' =>'Todos fetched successfully',
-                'user'=>$request->user(),
-                'todos'=>$todos
-            ],200
+                'success' => true,
+                'message' => 'Todos fetched successfully',
+                'user' => $request->user(),
+                'todos' => $todos
+            ],
+            200
         );
-
     }
 
-    public function updateTodo(Request $request, $id){
+    public function specificTodo(Request $request, $id)
+    {
+
+
+        $specificUser = $request->user()->userId;
+        $todos = ModelsNotes::where('userId', $specificUser)
+            ->where('id', $id)
+            ->get();
+
+        return response(
+            [
+                'success' => true,
+                'message' => 'Todos fetched successfully',
+                'user' => $request->user(),
+                'todos' => $todos
+            ],
+            200
+        );
+    }
+
+    public function updateTodo(Request $request, $id)
+    {
         $todos = ModelsNotes::find($id);
 
         $todos->id;
-        $todos->todo = $request ->todo;
-        $todos->userId =$request->user()->userId;
+        $todos->todo = $request->todo;
+        $todos->userId = $request->user()->userId;
         $res = $todos->save();
 
 
-        if($res){
+        if ($res) {
             return response([
-                'success' =>true,
-                'message'=>'Todo updated Successfully'
+                'success' => true,
+                'message' => 'Todo updated Successfully'
             ], 200);
-        }else{
+        } else {
             return response([
-                'success' =>false,
-                'message' =>'Todo update Failed'
+                'success' => false,
+                'message' => 'Todo update Failed'
             ], 201);
         }
-
     }
 
-    public function deleteTodo($id){
+    public function deleteTodo($id)
+    {
         $todos = ModelsNotes::find($id);
 
         $res = $todos->delete();
 
-        if($res){
+        if ($res) {
             return response(
                 [
-                    'success' =>true,
-                    'message'=>'todo deleted successfully'
-                ],200
+                    'success' => true,
+                    'message' => 'todo deleted successfully'
+                ],
+                200
             );
-        }else{
+        } else {
             return response(
                 [
-                    'success' =>false,
-                    'message'=>'todo delete failed'
-                ], 201
+                    'success' => false,
+                    'message' => 'todo delete failed'
+                ],
+                201
             );
         }
-
     }
 
 
-    public function updateStatus(Request $request, $id){
+    public function updateStatus(Request $request, $id)
+    {
         $todos = ModelsNotes::find($id);
 
         $todos->id;
         $todos->todo = $todos->todo;
-        if($todos->status == 0){
+        if ($todos->status == 0) {
             $todos->status = 1;
-        }else{
-            $todos->status =2;
+        } else {
+            $todos->status = 2;
         }
-        $todos->userId =$request->user()->userId;
+        $todos->userId = $request->user()->userId;
         $res = $todos->save();
 
 
-        if($res){
+        if ($res) {
             return response([
-                'success' =>true,
-                'message'=>'Status updated Successfully'
+                'success' => true,
+                'message' => 'Status updated Successfully'
             ], 200);
-        }else{
+        } else {
             return response([
-                'success' =>false,
-                'message' =>'Status update Failed'
+                'success' => false,
+                'message' => 'Status update Failed'
             ], 201);
         }
     }

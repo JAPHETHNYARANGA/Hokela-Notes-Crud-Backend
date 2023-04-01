@@ -36,6 +36,8 @@ Route::get('todos', [Notes::class, 'getTodos'])->middleware('auth:api');
 
 Route::put('updateTodo/{id}', [Notes::class, 'updateTodo'])->middleware('auth:api');
 
+Route::get('todo/{id}', [Notes::class, 'specificTodo'])->middleware('auth:api');
+
 Route::get('deleteTodo/{id}', [Notes::class, 'deleteTodo'])->middleware('auth:api');
 
 Route::Put('updateStatus/{id}', [Notes::class, 'updateStatus'])->middleware('auth:api');
