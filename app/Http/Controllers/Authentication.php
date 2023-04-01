@@ -28,6 +28,7 @@ class Authentication extends Controller
             return response(
                 [
                     'success'=>true,
+                    'message'=>'user logged in successfully',
                     'user'=>$user,
                     'token'=>$token
                 ],200

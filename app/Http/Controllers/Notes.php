@@ -43,6 +43,7 @@ class Notes extends Controller
             [
                 'success' =>true,
                 'message' =>'Todos fetched successfully',
+                'user'=>$request->user(),
                 'todos'=>$todos
             ],200
         );
@@ -101,10 +102,10 @@ class Notes extends Controller
 
         $todos->id;
         $todos->todo = $todos->todo;
-        if($todos->status == 1){
-            $todos->status = 0;
+        if($todos->status == 0){
+            $todos->status = 1;
         }else{
-            $todos->status =1;
+            $todos->status =2;
         }
         $todos->userId =$request->user()->userId;
         $res = $todos->save();
