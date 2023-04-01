@@ -43,7 +43,18 @@ class Notes extends Controller
     public function getTodos(Request $request)
     {
         $specificUser = $request->user()->userId;
-        $todos = ModelsNotes::where('userId', $specificUser)->get();
+
+        //get search item
+        $search = $request->search;
+        // $search = 'japheth';
+
+        if($search){
+            $todos = ModelsNotes::where('userId', $specificUser)
+            ->where('todo', 'LIKE', "%$search%")
+            ->get();
+        }else{
+            $todos = ModelsNotes::where('userId', $specificUser)->get();
+        }
 
         return response(
             [
