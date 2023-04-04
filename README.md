@@ -6,6 +6,15 @@ This ia a todo backend application that has a register and login option, creatin
 
 After cloning the application , run the command `composer intall` to install the required dependencies for the laravel project
 
+Then create a .env file and run `php artisan key:generate` to generate application key.
+
+for the passport tokens.
+run the command `php artisan passport:client`
+then add it to the .env file as shownn below
+
+`PASSPORT_PERSONAL_ACCESS_CLIENT_ID=1`<br>
+`PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET="DDVPb9VUAD2LU5Bqd0T8y2uJW4fZblqeJtRslKVC"`
+
 ## Technologies
 
 * Laravel
